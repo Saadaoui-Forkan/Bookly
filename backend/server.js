@@ -18,6 +18,9 @@ app.use(
   })
 );
 
+// routes
+app.use('/api/users', require('./routes/userRoute'))
+
 // running the server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>
