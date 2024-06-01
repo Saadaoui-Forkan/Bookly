@@ -20,6 +20,7 @@ app.use(
 
 // routes
 app.use('/api/users', require('./routes/userRoute'))
+app.use('/api/books', require('./routes/bookRoute'))
 
 // running the server
 const PORT = process.env.PORT || 8000;

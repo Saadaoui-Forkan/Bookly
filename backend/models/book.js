@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const ModelSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -12,6 +12,13 @@ const ModelSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    image: {
+        type: Object,
+        default: {
+          url: "",
+          publicId: null,
+        }
     },
     rate: {
         type: Number,
