@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require("fs");
 const Book = require('../models/book');
-const { cloudinaryUploadImage } = require("../utils/cloudinary");
+const { cloudinaryUploadImage, cloudinaryRemoveImage } = require("../utils/cloudinary");
 const { asyncHandler } = require('../middlewares/asyncHandler');
 
 // method   POST 
@@ -45,7 +45,134 @@ const createBook = asyncHandler(async(req, res) => {
     }
 });
 
+// method   GET 
+// route    api/books
+// desc     Get all books
+// access   Public
+const getBooks = asyncHandler(async(req, res) => {
+    const BOOK_PER_PAGE = 3;
+    const { pageNumber } = req.query;
+    let books;
+
+    if (pageNumber) {
+        books = await Book.find()
+            .skip((pageNumber - 1) * BOOK_PER_PAGE)
+            .limit(BOOK_PER_PAGE)
+            .sort({ createdAt: -1 })
+    } else {
+        books = await Book.find()
+            .sort({ createdAt: -1 })
+    }
+
+    res.status(200).json(books)
+})
+
+// method   GET 
+// route    api/books/:id
+// desc     Find a book
+// access   Private | auth
+const findBook = asyncHandler(async(req, res) => {
+    const book = await Book.findById(req.params.id)
+    // Book Check
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+
+    res.status(200).json(book)
+})
+
+// method   DELETE 
+// route    api/books/:id
+// desc     Delete a book
+// access   Private | admin
+const deleteBook = asyncHandler(async(req, res) => {
+    const book = await Book.findById(req.params.id)
+    // Book Check
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+    // Delete Book from DB
+    await Book.findByIdAndDelete(req.params.id);
+    // Delete Book from Cloudinary
+    await cloudinaryRemoveImage(book.image.publicId);
+    
+    res.status(200).json({ message: "Book deleted successfully" })
+})
+
+// method   PUT 
+// route    api/books/:id
+// desc     Update a book
+// access   Private | admin
+const updateBook = asyncHandler(async(req, res) => {
+    const book = await Book.findById(req.params.id)
+    // Book Check
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+    // Update Book
+    const updateBook = await Book.findByIdAndUpdate(req.params.id, {
+        $set: {
+            title: req.body.title,
+            description: req.body.description,
+            category: req.body.category,
+            author: req.body.author,
+            language: req.body.language,
+            PublicationDate: req.body.PublicationDate,
+        }
+    }, { new: true })
+    res.status(200).json({ 
+        data: updateBook, 
+        message: "Book updated successfully" 
+    });
+})
+
+// method   PUT 
+// route    api/books/update-image/:id
+// desc     Update book Image
+// access   Private | admin
+const updateBookImage = asyncHandler(async(req, res) => {
+    // Book Image Check
+    if (!req.file) {
+        return res.status(404).json({ message: "No image provided" })
+    } 
+
+    const book = await Book.findById(req.params.id)
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+
+    // Delete Old Image from Cloudinary
+    await cloudinaryRemoveImage(book.image.publicId)
+
+    // Upload new Image
+    const imagePath = path.join(__dirname, `../images/${req.file.filename}`);
+    const result = await cloudinaryUploadImage(imagePath);
+
+    // Update Image Field in DB 
+    const updateBook = await Book.findByIdAndUpdate(req.params.id, {
+        $set: {
+            image: {
+                url: result.secure_url,
+                publicId: result.public_id
+            }
+        }
+    }, { new: true })
+
+    res.status(200).json({ 
+        data: updateBook, 
+        message: "Image updated successfully" 
+    });
+
+    // Remove Image From Server
+    fs.unlinkSync(imagePath)
+})
+
 module.exports = {
     createBook,
+    getBooks,
+    findBook, 
+    deleteBook,
+    updateBook,
+    updateBookImage
 }
 
