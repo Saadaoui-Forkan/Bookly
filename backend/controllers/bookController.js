@@ -29,6 +29,9 @@ const createBook = asyncHandler(async(req, res) => {
                 url: result.secure_url,
                 publicId: result.public_id,
             },
+            author: req.body.author,
+            language: req.body.language,
+            PublicationDate: req.body.PublicationDate,
         });
 
         // Send response to the client

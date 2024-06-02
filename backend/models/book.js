@@ -20,6 +20,16 @@ const ModelSchema = new mongoose.Schema({
           publicId: null,
         }
     },
+    author: {
+        type: String,
+        required: true
+    },
+    language: {
+        type: String,
+    },
+    PublicationDate: {
+        type: Date,
+    },
     rate: {
         type: Number,
         default: 0
