@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require("fs");
 const Book = require('../models/book');
+const User = require('../models/user');
 const { cloudinaryUploadImage, cloudinaryRemoveImage } = require("../utils/cloudinary");
 const { asyncHandler } = require('../middlewares/asyncHandler');
 
@@ -163,12 +164,72 @@ const updateBookImage = asyncHandler(async(req, res) => {
     fs.unlinkSync(imagePath)
 })
 
+// method   POST 
+// route    api/books/:id/reviews
+// desc     Add a book review
+// access   Private | auth
+const addReview = asyncHandler(async(req, res) => {
+    const { id } = req.params
+    const { comment, rate } = req.body
+    const book = await Book.findById(id)
+    const user = await User.findById(req.userId)
+
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+    const isRated = book.reviews.findIndex(m => m.user == req.userId)
+    if (isRated > -1){
+        return res.status(403).send({ message: "Review Is Already Added" });
+    }
+    const totalRate = book.reviews.reduce((sum, review) => sum + review.rate ,0)  
+    const finalRate = (totalRate + rate) / (book.reviews.length + 1)
+
+    await Book.updateOne(
+        { _id: id } ,
+        {
+            $push: {
+                reviews: {
+                    user: req.userId,
+                    username: user.name,
+                    comment,
+                    rate
+                }
+            },
+            $set: {
+                rate: finalRate
+            }
+        }
+    )
+
+    res.status(201).json({ success: true })    
+})
+
+// method   GET 
+// route    api/books/:id/reviews
+// desc     Get a book review
+// access   Public
+const getReviews = asyncHandler(async(req, res) => {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+
+    if (!book) {
+        return res.status(404).json({ message: "Book Not Found" })
+    }
+
+    res.status(200).json({
+        success: true,
+        data: book.reviews
+    })
+})
+
 module.exports = {
     createBook,
     getBooks,
     findBook, 
     deleteBook,
     updateBook,
-    updateBookImage
+    updateBookImage,
+    addReview,
+    getReviews
 }
 

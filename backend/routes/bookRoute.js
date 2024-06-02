@@ -7,6 +7,8 @@ const {
   deleteBook,
   updateBook,
   updateBookImage,
+  addReview,
+  getReviews,
 } = require("../controllers/bookController");
 const router = express.Router();
 const admin = require('../middlewares/admin');
@@ -35,5 +37,11 @@ router.put(
   photoUpload.single("image"),
   updateBookImage
 );
+
+//  api/books/:id/reviews
+router.post('/:id/reviews', auth.check, addReview)
+
+//  api/books/:id/reviews
+router.get('/:id/reviews', getReviews)
 
 module.exports = router;
