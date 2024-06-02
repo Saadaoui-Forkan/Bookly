@@ -21,6 +21,7 @@ app.use(
 // routes
 app.use('/api/users', require('./routes/userRoute'))
 app.use('/api/books', require('./routes/bookRoute'))
+app.use('/api/favoriteList', require('./routes/favoritesRoute'))
 
 // running the server
 const PORT = process.env.PORT || 8000;

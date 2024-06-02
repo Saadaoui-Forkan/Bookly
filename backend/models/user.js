@@ -16,13 +16,13 @@ const ModelSchema = new mongoose.Schema({
 		required: true,
 		minlength: 6 
 	},
-	readList: [
+	favoriteList: [
 		{
-			movie: {
+			book: {
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Book'
 			},
-			watched: Boolean
+			favorite: Boolean
 		}
 	],
 	isAdmin: {  
