@@ -50,21 +50,17 @@ const createBook = asyncHandler(async(req, res) => {
 // desc     Get all books
 // access   Public
 const getBooks = asyncHandler(async(req, res) => {
-    const BOOK_PER_PAGE = 3;
-    const { pageNumber } = req.query;
-    let books;
-
-    if (pageNumber) {
-        books = await Book.find()
-            .skip((pageNumber - 1) * BOOK_PER_PAGE)
-            .limit(BOOK_PER_PAGE)
-            .sort({ createdAt: -1 })
-    } else {
-        books = await Book.find()
-            .sort({ createdAt: -1 })
-    }
-
-    res.status(200).json(books)
+    const page = req.query?.page || 1
+    const limit = 6
+    const skip = (page - 1) * limit
+    const movies = await Book.find().select('-reviews').skip(skip).limit(limit)
+    const total = await Book.countDocuments()
+    const pages = Math.ceil(total/limit)
+    res.json({
+        success: true,
+        pages,
+        data: movies
+    })
 })
 
 // method   GET 
