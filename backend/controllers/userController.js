@@ -48,12 +48,9 @@ const loginUser = asyncHandler(async(req, res) => {
         let user = await User.findOne({ email })
         if (user && bcrypt.compareSync(password, user.password)) {
             res.json({
-                success: true,
-                data: {
-                    id: user.id,
-                    name: user.name,
-                    accessToken: jwtHelpers.sign({ sub: user.id })
-                }
+                id: user.id,
+                name: user.name,
+                accessToken: jwtHelpers.sign({ sub: user.id })
             })
         } else {
             return res.status(400).json({errors: [{msg: 'Invalid email or password'}]})

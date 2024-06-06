@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './form.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../../redux/apiCalls/authApiCalls';
 
 function Login() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   window.scroll(0,0)
 
   const [email,setEmail] = useState("")
@@ -12,17 +16,19 @@ function Login() {
 
   // form submit handler
   const formSubmitHandler = (e) => {
-      e.preventDefault()
-      if (email.trim() === "") {
-          return toast.error("Email is required")
-      }
-      if (password === "") {
-          return toast.error("Password is required")
-      }
+    e.preventDefault()
+    if (email.trim() === "") {
+        return toast.error("Email is required")
+    }
+    if (password === "") {
+        return toast.error("Password is required")
+    }
+    dispatch(loginUser({ email, password }))
+    navigate('/')
   }
   return (
     <div className="form-wrapper">
-      <ToastContainer theme="colored"/>
+      <ToastContainer theme="light"/>
       <h1 className="form-title">Login to your account</h1>
       <form onSubmit={formSubmitHandler}  className="form">
         <input
