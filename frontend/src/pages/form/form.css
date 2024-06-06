@@ -10,7 +10,7 @@
 
 .form-wrapper::before {
     content: "";
-    background: url("../../images/library-book.jpg") no-repeat;
+    background: url("../../images/contact-bg.jpg") no-repeat;
     background-attachment: fixed;
     background-position: 50%;
     background-size: cover;
@@ -19,14 +19,14 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
-    opacity: 0.9;
+    opacity: 1;
     z-index: -1;
 }
 
 .form-title {
     font-size: 27px;
     margin: 30px;
-    color: #fff;
+    color: var(--light-color);
 }
 
 .form {
@@ -40,7 +40,7 @@
     padding: 10px;
     font-size: 21px;
     margin-bottom: 15px;
-    color: #fff;
+    color: white;
     background: transparent;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .form input::placeholder{
-    color: #fff;
+    color: white;
 }
 
 .form-btn {
@@ -82,12 +82,6 @@ a.forms-link {
 
 
 /* Media Queries */
-@media(max-width: 768px) {
-    .form-wrapper {
-        margin-top: 85px;
-    }
-}
-
 @media (min-width: 330px) and (max-width: 575px) {
     .form-title {
         font-size: 20px;
