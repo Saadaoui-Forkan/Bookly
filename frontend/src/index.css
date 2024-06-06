@@ -1,3 +1,36 @@
-* { 
-  color: red
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  /*----- Colors ------ */
+  --danger-color: rgb(247, 96, 14);
+  --light-color: #E2E2E2;
+  --secondary-color: #7B7B7B;
+  --first-color: #909090;
+  --third-color: #505050;
+  --primary-color: #3b5998;
+  --info-color: #55acee;
+  /* ---- Fonts ------ */
+  --body-font: "Lato", sans-serif;
+  --logo-font: "Jacquard 12", system-ui;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--body-font);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: var(--danger-color);
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
 }

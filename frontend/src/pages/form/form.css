@@ -1,0 +1,108 @@
+.form-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.form-wrapper::before {
+    content: "";
+    background: url("../../images/library-book.jpg") no-repeat;
+    background-attachment: fixed;
+    background-position: 50%;
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.9;
+    z-index: -1;
+}
+
+.form-title {
+    font-size: 27px;
+    margin: 30px;
+    color: #fff;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+}
+
+.form input {
+    border: 2px solid var(--light-color);
+    padding: 10px;
+    font-size: 21px;
+    margin-bottom: 15px;
+    color: #fff;
+    background: transparent;
+}
+
+.form input:focus{
+    outline: none;
+}
+
+.form input::placeholder{
+    color: #fff;
+}
+
+.form-btn {
+    z-index: 1;
+    position: relative;
+    font-family: inherit;
+    color: white;
+    padding: 0.5em 1em;
+    outline: none;
+    border: none;
+    background-color: var(--danger-color);
+    overflow: hidden;
+    width: 60%;
+    margin: auto;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.form-footer {
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+}
+a.forms-link {
+    color: var(--danger-color);
+    text-decoration: none;
+}
+
+
+/* Media Queries */
+@media(max-width: 768px) {
+    .form-wrapper {
+        margin-top: 85px;
+    }
+}
+
+@media (min-width: 330px) and (max-width: 575px) {
+    .form-title {
+        font-size: 20px;
+    }
+    .form {
+        width: 290px;
+    }
+    .form input {
+        font-size: 15px;
+        margin-bottom: 13px;
+    }
+    .form-btn {
+        font-size: 17px;
+    }
+    .form-footer {
+        font-size: 13px;
+    }
+}
