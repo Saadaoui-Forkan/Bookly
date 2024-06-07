@@ -14,7 +14,7 @@ const registerUser = asyncHandler(async(req, res) => {
         let user = await User.findOne({ email })
         // Check if user exist
         if (user) {
-            return res.status(400).json({errors: [{msg: 'User already exists'}]})
+            return res.status(400).json({msg: 'User already exists'})
         }
         user = new User({
             name,
@@ -26,11 +26,8 @@ const registerUser = asyncHandler(async(req, res) => {
         user.password = await bcrypt.hash(password, salt)
         await user.save()
         res.send({
-           data: {
-                user,
-                accessToken: jwtHelpers.sign({ sub: user.id })
-            } ,
-            msg: 'user created'
+            user,
+            accessToken: jwtHelpers.sign({ sub: user.id })
         })
     } catch (err) {
         console.log(err.message)
@@ -48,12 +45,11 @@ const loginUser = asyncHandler(async(req, res) => {
         let user = await User.findOne({ email })
         if (user && bcrypt.compareSync(password, user.password)) {
             res.json({
-                id: user.id,
                 name: user.name,
                 accessToken: jwtHelpers.sign({ sub: user.id })
             })
         } else {
-            return res.status(400).json({errors: [{msg: 'Invalid email or password'}]})
+            return res.status(400).json({ msg: 'Invalid email or password' })
         }
         
     } catch (error) {

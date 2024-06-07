@@ -11,7 +11,20 @@ export function loginUser(user) {
       dispatch(authActions.login(data));
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
-        toast.error(error.response?.data.errors[0]?.msg);
+        toast.error(error.response?.data.msg);
+    }
+  };
+}
+
+// Register User
+export function registerUser(user) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`${USER_URL}/register`, user);
+      dispatch(authActions.login(data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      toast.error(error.response?.data?.msg);
     }
   };
 }

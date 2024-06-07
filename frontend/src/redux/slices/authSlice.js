@@ -6,8 +6,6 @@ const authSlice = createSlice({
         user: localStorage.getItem("userInfo")
             ? JSON.parse(localStorage.getItem("userInfo"))
             : null,
-        error: false,
-        loading: false,
     },
     reducers: {
         login(state, action) {

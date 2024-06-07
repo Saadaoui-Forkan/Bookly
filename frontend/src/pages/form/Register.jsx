@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import './form.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { registerUser } from '../../redux/apiCalls/authApiCalls';
+import { useDispatch } from 'react-redux';
 
 function Register() {
+  const dispatch = useDispatch()
   window.scroll(0,0)
 
   const [email,setEmail] = useState("")
-  const [username,setUsername] = useState("")
+  const [name,setUsername] = useState("")
   const [password,setPassword] = useState("")
 
   // form submit handler
@@ -17,16 +20,17 @@ function Register() {
       if (email.trim() === "") {
           return toast.error("Email is required")
       }
-      if (password === "") {
-          return toast.error("Password is required")
+      if (password.length < 6) {
+          return toast.error("Please enter a password with 6 or more characters")
       }
-      if (username.trim() === "") {
-          return toast.error("Username is required")
+      if (name.trim() === "") {
+          return toast.error("name is required")
       }
+      dispatch(registerUser({ name, email, password }))
     }
   return (
     <div className="form-wrapper">
-    <ToastContainer theme="colored"/>
+    <ToastContainer theme="light"/>
     <h1 className="form-title">Create new account</h1>
     <form onSubmit={formSubmitHandler}  className="form">
       <input
@@ -36,10 +40,10 @@ function Register() {
           placeholder="Email"
       />
       <input
-          value={username}
+          value={name}
           onChange={(e) => setUsername(e.target.value)}
           type="text"
-          placeholder="Username"
+          placeholder="name"
       />
       <input
           value={password}

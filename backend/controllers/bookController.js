@@ -52,7 +52,7 @@ const createBook = asyncHandler(async(req, res) => {
 // access   Public
 const getBooks = asyncHandler(async(req, res) => {
     const page = req.query?.page || 1
-    const limit = 6
+    const limit = 3
     const skip = (page - 1) * limit
     const movies = await Book.find().select('-reviews').skip(skip).limit(limit)
     const total = await Book.countDocuments()
