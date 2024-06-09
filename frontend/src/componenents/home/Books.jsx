@@ -3,16 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../redux/apiCalls/bookApiCall";
 import { Oval } from "react-loader-spinner";
 import Rating from "../rating/Rating";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Books({ currentPage }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { books, loading } = useSelector((state) => state.book);
-  console.log(books)
+  const { user } = useSelector((state) => state.auth)
 
   useEffect(() => {
     dispatch(fetchBooks(currentPage));
   }, [dispatch, currentPage]);
+
+  const showBookDetails = (id) => {
+    if (user) {
+      navigate(`/${id}`)
+    } else {
+      navigate('/login')
+    }
+  }
 
   return (
     <div className="books">
@@ -44,7 +54,7 @@ function Books({ currentPage }) {
                 <h2 className="over-title">{book?.title}</h2>
                 <h3 className="over-auth">{book?.author}</h3>
                 <Rating rating={book?.rate}/>
-                <button className="over-btn">SHOW BOOK</button>
+                <button className="over-btn" onClick={()=>showBookDetails(book.id)}>SHOW BOOK</button>
               </div>
             </div>
           ))

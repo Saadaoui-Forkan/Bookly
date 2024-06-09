@@ -4,7 +4,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import './rating.css'
 
-const Rating = ({ rating, reviews }) => {
+const Rating = ({ rating }) => {
   return (
     <div className="rating">
       {rating >= 1 ? (

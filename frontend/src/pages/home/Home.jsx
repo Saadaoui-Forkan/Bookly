@@ -22,7 +22,7 @@ function Home() {
         nextLabel = "next"
         onPageChange = {handlePageClick}
         pageRangeDisplayed = {3}
-        pageCount = {Math.ceil(books.pages)}
+        pageCount = {Number.isFinite(books.pages) ? Math.ceil(books.pages) : 0}
         previousLabel = "previous"
         renderOnZeroPageCount = {null}
         containerClassName = {'pagination'}

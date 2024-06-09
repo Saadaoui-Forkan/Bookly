@@ -12,6 +12,12 @@ const bookSlice = createSlice({
         getBooks(state, action) {
             state.books = action.payload;
         },
+        findBook(state, action) {
+            state.books = action.payload;
+        },
+        getReviews(state, action) {
+            state.books = action.payload;
+        },
         setPages(state, action) {
             state.pages = action.payload;
         },

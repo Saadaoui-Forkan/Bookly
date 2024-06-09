@@ -15,6 +15,11 @@
   --logo-font: "Jacquard 12", system-ui;
 }
 
+#root {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 * {
   margin: 0;
   padding: 0;

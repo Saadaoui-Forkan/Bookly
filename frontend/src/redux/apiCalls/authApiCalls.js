@@ -28,3 +28,11 @@ export function registerUser(user) {
     }
   };
 }
+
+// Logout User
+export function logoutUser() {
+  return (dispatch) => {
+    dispatch(authActions.logout());
+    localStorage.removeItem("userInfo");
+  }
+}

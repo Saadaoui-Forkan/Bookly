@@ -8,6 +8,7 @@ import Login from './pages/form/Login';
 import Footer from './componenents/footer/Footer';
 import Register from './pages/form/Register';
 import { useSelector } from 'react-redux';
+import BookDetails from './pages/book/BookDetails';
 
 function App() {
   const { user } = useSelector(state => state.auth)
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={!user ? <Login/> : <Navigate to="/"/>} />
         <Route path='/register' element={!user ? <Register /> : <Navigate to="/" />}/>
+        <Route path='/:book' element={user ? <BookDetails/> : <Navigate to="/"/>}/>
       </Routes>
       <Footer/>
       <ToastContainer theme="light" />

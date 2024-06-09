@@ -24,7 +24,7 @@ function Login() {
         return toast.error("Password is required")
     }
     dispatch(loginUser({ email, password }))
-    navigate('/')
+    // navigate('/')
   }
   return (
     <div className="form-wrapper">
