@@ -1,23 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./book.css";
 import Rating from "../../componenents/rating/Rating";
 import { useParams } from "react-router-dom";
 import {
   fetchSingleBook,
-  fetchSingleBookReviews,
+  getBookReviews,
 } from "../../redux/apiCalls/bookApiCall";
 import { useDispatch, useSelector } from "react-redux";
 import { Oval } from "react-loader-spinner";
 import moment from "moment";
+import Modal from "../../componenents/book-details/Modal";
+import Reviews from "../../componenents/book-details/Reviews";
 
 function BookDetails() {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { book } = useParams();
   const { books, loading } = useSelector((state) => state.book);
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(fetchSingleBook(book));
+  }, [dispatch, book]);
+
+  
+  useEffect(() => {
+    if (book) {
+      dispatch(getBookReviews(book));
+    }
   }, [dispatch, book]);
 
   if (loading) {
@@ -55,33 +73,36 @@ function BookDetails() {
           <h3>{books?.author}</h3>
           <h3>{books?.language}</h3>
           <p>
-            <span>Published at:</span> {moment(books?.PublicationDate).format("DD MMM YYYY")}
+            <span>{`Published at: `}</span>{" "}
+            {moment(books?.PublicationDate).format("DD MMM YYYY")}
           </p>
           <p className="description">
-            <span>Description:</span>
+            <span>{`Description: `}</span>
             {books?.description}
           </p>
         </div>
       </div>
 
-      <div className="book-details-reviews">
-        <div className="add-review"></div>
-        <div className="get-reviews">
-          <h2>Reviews ({books?.reviews?.length})</h2>
-          <div className="reviews">
-            {books?.reviews?.map((el, key) => (
-              <div className="user-review" key={key}>
-                <p>
-                  <span>{el?.username ? el?.username : "Unknown User"}</span> -
-                  {moment(el?.createdAt).format('DD MMM YYYY')}
-                </p>
-                <Rating rating={el?.rate} />
-                <p>{el?.comment}</p>
-              </div>
-            ))}
-          </div>
+      <div className="btns">
+        <div className="favorite-btn">
+          <button type="button">Add To Favorites</button>
+        </div>
+        <div className="review-btn">
+          <button type="button" onClick={handleOpenModal}>
+            Add Review
+          </button>
         </div>
       </div>
+
+      <div className="book-details-reviews">
+        <Reviews book={book}/>
+      </div>
+      <Modal
+        showModal={showModal}
+        handleClose={handleCloseModal}
+        book={book}
+        // handleSubmit={handleSubmit}
+      />
     </div>
   );
 }

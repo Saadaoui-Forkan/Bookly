@@ -4,7 +4,7 @@ const bookSlice = createSlice({
     name: "book",
     initialState: {
         books: [],
-        pages: null,
+        reviews: [],
         error: false,
         loading: false,
     },
@@ -15,11 +15,11 @@ const bookSlice = createSlice({
         findBook(state, action) {
             state.books = action.payload;
         },
-        getReviews(state, action) {
-            state.books = action.payload;
+        addReviews(state, action) {
+            state.books.push(action.payload)
         },
-        setPages(state, action) {
-            state.pages = action.payload;
+        getReviews(state, action) {
+            state.reviews = action.payload;
         },
         setLoading(state) {
             state.loading = true;

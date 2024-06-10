@@ -32,17 +32,17 @@ export function fetchSingleBook(bookId) {
       dispatch(bookActions.clearLoading());
     } catch (error) {
       toast.error(error.response.data.message);
-      dispatch(bookActions.clearLoadingLoading());
+      dispatch(bookActions.clearLoading());
     }
   };
 }
 
-// Get Book By Id
-export function fetchSingleBookReviews(bookId) {
+// Get Book Reviews
+export function getBookReviews(bookId) {
   return async (dispatch, getState) => {
     try {
       dispatch(bookActions.setLoading())
-      const { data } = await axios.get(`${BOOK_URL}/${bookId}/reviews`, {
+      const {data} = await axios.get(`${BOOK_URL}/${bookId}/reviews`, {
         headers: {
           "authorization": getState().auth.user.accessToken
         }
@@ -50,8 +50,29 @@ export function fetchSingleBookReviews(bookId) {
       dispatch(bookActions.getReviews(data));
       dispatch(bookActions.clearLoading());
     } catch (error) {
-      toast.error(error.response.data.message);
-      dispatch(bookActions.clearLoadingLoading());
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
+    }
+  };
+}
+
+// Post Review
+export function postReview(bookId, review) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(bookActions.setLoading())
+      const {data} = await axios.post(`${BOOK_URL}/${bookId}/reviews`, review, {
+        headers: {
+          "authorization": getState().auth.user.accessToken
+        }
+      });
+      toast.success(data?.message)
+      // dispatch(bookActions.addReviews())
+      dispatch(getBookReviews(bookId));
+      dispatch(bookActions.clearLoading());
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
     }
   };
 }

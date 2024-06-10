@@ -201,7 +201,7 @@ const addReview = asyncHandler(async(req, res) => {
         }
     )
 
-    res.status(201).json({ success: true })    
+    res.status(201).json({ message: "Review added successfully" })    
 })
 
 // method   GET 
@@ -216,10 +216,7 @@ const getReviews = asyncHandler(async(req, res) => {
         return res.status(404).json({ message: "Book Not Found" })
     }
 
-    res.status(200).json({
-        success: true,
-        data: book.reviews
-    })
+    res.status(200).json(book.reviews)
 })
 
 module.exports = {

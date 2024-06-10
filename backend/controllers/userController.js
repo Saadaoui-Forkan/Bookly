@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async(req, res) => {
         user.password = await bcrypt.hash(password, salt)
         await user.save()
         res.send({
-            user,
+            name: user.name,
             accessToken: jwtHelpers.sign({ sub: user.id })
         })
     } catch (err) {

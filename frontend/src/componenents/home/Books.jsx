@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../redux/apiCalls/bookApiCall";
 import { Oval } from "react-loader-spinner";
 import Rating from "../rating/Rating";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Books({ currentPage }) {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function Books({ currentPage }) {
             strokeWidthSecondary={3}
           />
         ) : (
-          books.data?.map((book, index) => (
+          books?.data?.map((book, index) => (
             <div className="books-card" key={index}>
               <img src={book?.image.url} className="books-card-img" alt="" />
               <div className="over">

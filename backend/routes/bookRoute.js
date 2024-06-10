@@ -42,6 +42,6 @@ router.put(
 router.post('/:id/reviews', auth.check, addReview)
 
 //  api/books/:id/reviews
-router.get('/:id/reviews', getReviews)
+router.get('/:id/reviews', auth.check, getReviews)
 
 module.exports = router;
