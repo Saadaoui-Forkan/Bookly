@@ -67,7 +67,6 @@ export function postReview(bookId, review) {
         }
       });
       toast.success(data?.message)
-      // dispatch(bookActions.addReviews())
       dispatch(getBookReviews(bookId));
       dispatch(bookActions.clearLoading());
     } catch (error) {

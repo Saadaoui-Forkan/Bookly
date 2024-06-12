@@ -9,6 +9,7 @@ import Footer from './componenents/footer/Footer';
 import Register from './pages/form/Register';
 import { useSelector } from 'react-redux';
 import BookDetails from './pages/book/BookDetails';
+import Favorites from './pages/favorites/Favorites';
 
 function App() {
   const { user } = useSelector(state => state.auth)
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={!user ? <Login/> : <Navigate to="/"/>} />
         <Route path='/register' element={!user ? <Register /> : <Navigate to="/" />}/>
         <Route path='/:book' element={user ? <BookDetails/> : <Navigate to="/"/>}/>
+        <Route path='/favorites' element={user ? <Favorites/> : <Navigate to="/"/>}/>
       </Routes>
       <Footer/>
       <ToastContainer theme="light" />

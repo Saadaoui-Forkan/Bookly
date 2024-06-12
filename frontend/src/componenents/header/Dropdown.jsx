@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logoutUser } from '../../redux/apiCalls/authApiCalls'
+import { Link } from 'react-router-dom'
 
 function Dropdown() {
     const dispatch = useDispatch()
@@ -15,7 +16,7 @@ function Dropdown() {
                 Logout
             </li>
             <li className="dropdown-item">
-                My Favorites
+                <Link className='dropdown-item-link' to='/favorites'>My Favorites</Link>
             </li>
         </ul>
     </div>

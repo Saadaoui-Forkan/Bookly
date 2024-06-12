@@ -11,6 +11,7 @@ import { Oval } from "react-loader-spinner";
 import moment from "moment";
 import Modal from "../../componenents/book-details/Modal";
 import Reviews from "../../componenents/book-details/Reviews";
+import { postToFavorites } from "../../redux/apiCalls/favoritesApiCall";
 
 function BookDetails() {
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +26,10 @@ function BookDetails() {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const addToFavorites = (id) => {
+    dispatch(postToFavorites(id))
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,7 +90,7 @@ function BookDetails() {
 
       <div className="btns">
         <div className="favorite-btn">
-          <button type="button">Add To Favorites</button>
+          <button type="button" onClick={() => addToFavorites(books?.id)}>Add To Favorites</button>
         </div>
         <div className="review-btn">
           <button type="button" onClick={handleOpenModal}>

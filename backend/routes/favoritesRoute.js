@@ -4,7 +4,7 @@ const {
   addToFavorites,
   deleteFromFavorites,
   getFavorites,
-} = require("../controllers/FavoritesController");
+} = require("../controllers/favoritesController");
 const auth = require('../middlewares/auth');
 
 //  api/favoriteList

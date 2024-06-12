@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const Modal = ({ showModal, handleClose, book }) => {
   const [rate, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  console.log(rate)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

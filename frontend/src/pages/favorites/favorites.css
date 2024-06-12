@@ -1,0 +1,60 @@
+.favorites {
+    height: 100%;
+    margin: 40px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: all 1s ease;
+}
+
+.empty {
+    height: 40vh;
+    color: var(--primary-color)
+}
+
+.book-item {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: snow;
+    margin: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.book-item-img {
+    width: 60%;
+    object-fit: contain;
+    margin: auto;
+}
+
+.book-item-title {
+    font-size: 18px;
+    margin: 10px 5px;
+}
+
+.book-item-title {
+    font-weight: bold;
+    margin: 10px 5px;
+}
+
+.book-icons-wrapper {
+    border-top: 1px solid gray;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.book-icons-wrapper svg {
+    font-size: 27px;
+    cursor: pointer;
+    margin: 0 5px;
+    color: rgb(56, 56, 56);
+    color: crimson;
+}
+
+@media (min-width:330px) and (max-width:575px) {
+    .book-item {
+        width: 310px;
+    }
+}
