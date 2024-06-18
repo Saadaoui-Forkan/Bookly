@@ -27,6 +27,7 @@ const registerUser = asyncHandler(async(req, res) => {
         await user.save()
         res.send({
             name: user.name,
+            isAdmin: user.isAdmin,
             accessToken: jwtHelpers.sign({ sub: user.id })
         })
     } catch (err) {
@@ -46,6 +47,7 @@ const loginUser = asyncHandler(async(req, res) => {
         if (user && bcrypt.compareSync(password, user.password)) {
             res.json({
                 name: user.name,
+                isAdmin: user.isAdmin,
                 accessToken: jwtHelpers.sign({ sub: user.id })
             })
         } else {

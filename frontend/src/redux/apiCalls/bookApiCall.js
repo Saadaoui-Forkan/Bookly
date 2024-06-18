@@ -75,3 +75,22 @@ export function postReview(bookId, review) {
     }
   };
 }
+
+// Add Book
+export function addBook(newBook) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(bookActions.setLoading())
+      const {data} = await axios.post(`${BOOK_URL}`, newBook, {
+        headers: {
+          "authorization": getState().auth.user.accessToken
+        }
+      });
+      dispatch(bookActions.addBook(data));
+      dispatch(bookActions.clearLoading());
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
+    }
+  };
+}

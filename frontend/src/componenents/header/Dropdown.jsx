@@ -16,7 +16,7 @@ function Dropdown() {
                 Logout
             </li>
             <li className="dropdown-item">
-                <Link className='dropdown-item-link' to='/favorites'>My Favorites</Link>
+                <Link className='dropdown-item-link' to='/favorites'>My Favorites</Link>  
             </li>
         </ul>
     </div>

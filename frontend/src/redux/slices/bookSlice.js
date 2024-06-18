@@ -33,6 +33,9 @@ const bookSlice = createSlice({
         clearError(state) {
             state.error = false;
         },
+        addBook(state, action) {
+            state.books = [...state.books, action.payload]
+        }
     }
 })
 

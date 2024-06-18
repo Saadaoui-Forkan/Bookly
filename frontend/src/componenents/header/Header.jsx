@@ -39,6 +39,19 @@ function Header() {
                     Home
                   </NavLink>
                 </li>
+                {user.isAdmin && (
+                  <li className="nav-item">
+                    <NavLink
+                      to="/admin"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "nav-links"
+                      }
+                      onClick={handleClick}
+                    >
+                      Dashboard
+                    </NavLink>
+                  </li>
+                )}
                 <li className="nav-item">
                   <NavLink
                     to="/login"
@@ -49,7 +62,7 @@ function Header() {
                   >
                     {user.name}
                     <BsThreeDotsVertical />
-                    <Dropdown/>
+                    <Dropdown />
                   </NavLink>
                 </li>
               </>

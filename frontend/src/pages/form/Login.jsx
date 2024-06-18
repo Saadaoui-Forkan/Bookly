@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
 import './form.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../redux/apiCalls/authApiCalls';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   window.scroll(0,0)
 
   const [email,setEmail] = useState("")
@@ -24,7 +23,6 @@ function Login() {
         return toast.error("Password is required")
     }
     dispatch(loginUser({ email, password }))
-    // navigate('/')
   }
   return (
     <div className="form-wrapper">
