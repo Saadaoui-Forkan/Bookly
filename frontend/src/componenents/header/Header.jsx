@@ -53,17 +53,14 @@ function Header() {
                   </li>
                 )}
                 <li className="nav-item">
-                  <NavLink
-                    to="/login"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-links nav-dropdown"
-                    }
+                  <span
+                    className= "nav-links nav-dropdown"
                     onClick={handleClick}
                   >
                     {user.name}
                     <BsThreeDotsVertical />
                     <Dropdown />
-                  </NavLink>
+                  </span>
                 </li>
               </>
             ) : (

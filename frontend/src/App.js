@@ -10,9 +10,8 @@ import Register from './pages/form/Register';
 import { useSelector } from 'react-redux';
 import BookDetails from './pages/book/BookDetails';
 import Favorites from './pages/favorites/Favorites';
-import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/not-found/NotFound';
-import BooksDashboard from './pages/dashboard/BooksDashboard';
+import AdminDashboard from './pages/dashboard/AdminDashboard';
 
 function App() {
   const { user } = useSelector(state => state.auth)
@@ -29,12 +28,12 @@ function App() {
         <Route path="admin">
           <Route
             index
-            element={user?.isAdmin ? <Dashboard/> : <Navigate to="/" />}
+            element={user?.isAdmin ? <AdminDashboard/> : <Navigate to="/" />}
           />
-          <Route
+          {/* <Route
             path="books"
             element={user?.isAdmin ? <BooksDashboard /> : <Navigate to="/" />}
-          />
+          /> */}
           </Route>
         <Route path="/*" element={<NotFound/>} />
       </Routes>

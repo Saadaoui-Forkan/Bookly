@@ -93,7 +93,7 @@ const deleteBook = asyncHandler(async(req, res) => {
     // Delete Book from Cloudinary
     await cloudinaryRemoveImage(book.image.publicId);
     
-    res.status(200).json({ message: "Book deleted successfully" })
+    res.status(200).json({ message: "Book deleted successfully", bookId: req.params.id })
 })
 
 // method   PUT 

@@ -54,7 +54,7 @@ const loginUser = asyncHandler(async(req, res) => {
             return res.status(400).json({ msg: 'Invalid email or password' })
         }
         
-    } catch (error) {
+    } catch (err) {
         console.log(err.message)
         res.status(500).send('Server error')
     }

@@ -83,10 +83,72 @@ export function addBook(newBook) {
       dispatch(bookActions.setLoading())
       const {data} = await axios.post(`${BOOK_URL}`, newBook, {
         headers: {
+          "authorization": getState().auth.user.accessToken,
+          "Content-Type": "multipart/form-data",
+        }
+      });
+      dispatch(bookActions.setBooks(data));
+      dispatch(bookActions.clearLoading());
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
+    }
+  };
+}
+
+// Remove Book
+export function removeBook(bookId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(bookActions.setLoading())
+      const {data} = await axios.delete(`${BOOK_URL}/${bookId}`, {
+        headers: {
           "authorization": getState().auth.user.accessToken
         }
       });
-      dispatch(bookActions.addBook(data));
+      toast.success(data.message)
+      dispatch(bookActions.deleteBook(data.bookId))
+      dispatch(bookActions.clearLoading());
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
+    }
+  };
+}
+
+// Update Book Image
+export function updateBookImage(image, bookId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(bookActions.setLoading())
+      const {data} = await axios.put(`${BOOK_URL}/update-image/${bookId}`, image, {
+        headers: {
+          "authorization": getState().auth.user.accessToken,
+          "Content-Type": "multipart/form-data",
+        }
+      });
+      toast.success(data?.message)
+      dispatch(bookActions.updateBook(data.data))
+      dispatch(bookActions.clearLoading());
+    } catch (error) {
+      toast.error(error?.response?.data.message);
+      dispatch(bookActions.clearLoading());
+    }
+  };
+}
+
+// Update Book Form
+export function updateBookForm(form, bookId) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(bookActions.setLoading())
+      const {data} = await axios.put(`${BOOK_URL}/${bookId}`, form, {
+        headers: {
+          "authorization": getState().auth.user.accessToken,
+        }
+      });
+      toast.success(data.message)
+      dispatch(bookActions.updateBook(data.data))
       dispatch(bookActions.clearLoading());
     } catch (error) {
       toast.error(error?.response?.data.message);

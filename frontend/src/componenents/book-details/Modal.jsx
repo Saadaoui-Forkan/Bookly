@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./book-details.css";
 import { useDispatch } from "react-redux";
-import { postReview } from "../../redux/apiCalls/bookApiCall";
+import { fetchSingleBook, postReview } from "../../redux/apiCalls/bookApiCall";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,9 @@ const Modal = ({ showModal, handleClose, book }) => {
     if (comment === "") {
       return toast.error("Comment is required");
     }
-    dispatch(postReview(book, { rate, comment }));
+    dispatch(postReview(book, { rate, comment })).then(()=>{
+      dispatch(fetchSingleBook(book))
+    });
     handleClose();
     navigate(`/${book}`);
   };

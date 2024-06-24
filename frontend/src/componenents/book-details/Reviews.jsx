@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 function Reviews() {
   const { loading, reviews } = useSelector((state) => state.book);
 
-
   return (
     <div className="get-reviews">
       <h2 className="get-reviews-title">Reviews ({reviews?.length})</h2>

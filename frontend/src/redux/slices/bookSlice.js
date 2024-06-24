@@ -33,8 +33,16 @@ const bookSlice = createSlice({
         clearError(state) {
             state.error = false;
         },
-        addBook(state, action) {
+        setBooks(state, action) {
             state.books = [...state.books, action.payload]
+        },
+        deleteBook(state, action) {
+            state.books = state.books.filter(el => el._id !== action.payload)
+        },
+        updateBook(state, action) {
+            state.books.data = state.books.data.map((book) => 
+                book.id === action.payload.id ? action.payload : book
+            );
         }
     }
 })

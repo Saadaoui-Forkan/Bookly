@@ -106,7 +106,6 @@ function BookDetails() {
         showModal={showModal}
         handleClose={handleCloseModal}
         book={book}
-        // handleSubmit={handleSubmit}
       />
     </div>
   );
