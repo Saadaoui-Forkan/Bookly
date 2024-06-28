@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaWindowClose } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { fetchBooks, fetchSingleBook, updateBookImage } from '../../redux/apiCalls/bookApiCall';
+import { updateBookImage } from '../../redux/apiCalls/bookApiCall';
 import { toast } from 'react-toastify';
 
 function BookImageModal({ book, setFileName, setSelectedBook, setBookImageModal }) {
