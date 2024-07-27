@@ -2,18 +2,18 @@
 ### Bookly: Library Management System using MERN Technologies
 
 ## Technologies
-**Frontend:** React.js – Tailwind CSS – Redux Toolkit
+-Frontend: React.js – Tailwind CSS – Redux Toolkit
 ---
-**Backend:** Node.js – Express.js
+-Backend: Node.js – Express.js
 ---
-**Database:** MongoDB
+-Database: MongoDB
 ***
 
 ## Description
 The admin has a dashboard that allows them to add, edit, or delete books.
----
+
 Users can rate a book by adding a score between 1 and 5 and leaving a comment.
----
+
 Users can add or remove books from their favorite list.
 ***
 
