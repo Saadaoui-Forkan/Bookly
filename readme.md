@@ -3,7 +3,9 @@
 
 ## Technologies
 -Frontend: React.js – Tailwind CSS – Redux Toolkit
+
 -Backend: Node.js – Express.js
+
 -Database: MongoDB
 ***
 
