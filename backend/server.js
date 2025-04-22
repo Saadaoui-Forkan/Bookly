@@ -1,7 +1,6 @@
 const express = require("express");
 const dbConnect = require("./config/connect");
 const cors = require("cors");
-const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -28,6 +27,6 @@ app.use('/api/favoriteList', require('./routes/favoritesRoute'))
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () =>
   console.log(
-    `Server Is Running in ${process.env.NODE_ENV} Mode on Port ${PORT}`
+    `Server Is Running in Mode on Port ${PORT}`
   )     
 );
