@@ -2,7 +2,7 @@
 ### Bookly: Library Management System using MERN Technologies
 
 ## Technologies
--Frontend: React.js – Tailwind CSS – Redux Toolkit
+-Frontend: React.js – Redux Toolkit
 
 -Backend: Node.js – Express.js
 

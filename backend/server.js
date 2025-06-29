@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "https://bookly-eight.vercel.app",
+      process.env.CLIENT_DEVELOPMENT_DOMAIN,
+      process.env.CLIENT_PRODUCTION_DOMAIN
     ],
     credentials: true, 
   })

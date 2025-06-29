@@ -32,7 +32,6 @@ export function postToFavorites(bookId) {
           authorization: getState().auth.user.accessToken,
         },
       });
-      console.log(data)
       toast.success(data?.message)
       dispatch(favoritesActions.setFavorites(bookId));
       dispatch(favoritesActions.clearLoading());
