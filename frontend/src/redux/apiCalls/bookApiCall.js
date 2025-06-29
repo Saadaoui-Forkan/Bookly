@@ -31,7 +31,7 @@ export function fetchSingleBook(bookId) {
       dispatch(bookActions.findBook(data));
       dispatch(bookActions.clearLoading());
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data.message);
       dispatch(bookActions.clearLoading());
     }
   };

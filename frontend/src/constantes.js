@@ -1,4 +1,4 @@
-const BASE = process.env.REACT_APP_API_URL
+const BASE = process.env.REACT_APP_API_PRODUCTION_URL
 
 export const BASE_URL = BASE;
 export const USER_URL = `${BASE}/users`;
