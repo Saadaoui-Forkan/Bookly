@@ -12,13 +12,29 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+
+// CORS configuration:
+// Only allow requests from trusted frontend domains defined in the .env file.
+// This includes both the local development domain and the production domain (e.g., Vercel).
+// Requests from tools like Postman (which have no origin) are also allowed for convenience.
+// This improves security by rejecting requests from unknown origins.
+const allowedOrigins = [
+  process.env.CLIENT_DEVELOPMENT_DOMAIN, 
+  process.env.CLIENT_PRODUCTION_DOMAIN,  
+];
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_DEVELOPMENT_DOMAIN,
-      process.env.CLIENT_PRODUCTION_DOMAIN
-    ],
-    credentials: true, 
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        // Allow request
+        callback(null, true);
+      } else {
+        // Block request from unknown origin
+        console.warn(`⚠️ CORS blocked request from origin: ${origin}`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow sending cookies with requests (important for auth)
   })
 );
 
