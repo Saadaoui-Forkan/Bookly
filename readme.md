@@ -25,7 +25,7 @@ Users can add or remove books from their favorite list.
 - Managing images with Cloudinary.
 - Using Redux Toolkit for state management.
 
-I am pleased to share a project demo video available at [the link](https://www.youtube.com/watch?v=H9IEJoS_b64)
+I am pleased to share a project demo video available at [the link](https://www.youtube.com/watch?v=H9IEJoS_b64) and a live demo accessible [here](https://bookly-zeta.vercel.app).
 ***
 
 ## Overview
