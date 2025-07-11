@@ -22,21 +22,10 @@ const allowedOrigins = [
   process.env.CLIENT_DEVELOPMENT_DOMAIN, 
   process.env.CLIENT_PRODUCTION_DOMAIN,  
 ];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        // Allow request
-        callback(null, true);
-      } else {
-        // Block request from unknown origin
-        console.warn(`⚠️ CORS blocked request from origin: ${origin}`);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow sending cookies with requests (important for auth)
-  })
-);
+app.use("*", cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // routes
 app.use('/api/users', require('./routes/userRoute'))

@@ -1,8 +1,6 @@
-const path = require('path');
-const fs = require("fs");
 const Book = require('../models/book');
 const User = require('../models/user');
-const { cloudinaryUploadImage, cloudinaryRemoveImage } = require("../utils/cloudinary");
+const { cloudinaryRemoveImage, cloudinary } = require("../utils/cloudinary");
 const { asyncHandler } = require('../middlewares/asyncHandler');
 
 // method   POST 
@@ -12,13 +10,17 @@ const { asyncHandler } = require('../middlewares/asyncHandler');
 const createBook = asyncHandler(async(req, res) => {
     try{
         // Image Validation
-        if (!req.file) {
+        const image = req.file
+        if (!image) {
             return res.status(400).json({ message: "no image provided" });
         }
 
         // Upload Photo
-        const imagePath = path.join(__dirname, `../images/${req.file.filename}`);
-        const result = await cloudinaryUploadImage(imagePath);
+        const base64 = image.buffer.toString("base64")
+        const mimeType = image.mimetype;
+        const uploadResponse = await cloudinary.uploader.upload(
+            `data:${mimeType};base64,${base64}`,
+        );
 
         // Save new post in database
         const book = await Book.create({
@@ -27,8 +29,8 @@ const createBook = asyncHandler(async(req, res) => {
             category: req.body.category,
             user: req.userId,
             image: {
-                url: result.secure_url,
-                publicId: result.public_id,
+                url: uploadResponse.secure_url,
+                publicId: uploadResponse.public_id,
             },
             author: req.body.author,
             language: req.body.language,
@@ -37,9 +39,6 @@ const createBook = asyncHandler(async(req, res) => {
 
         // Send response to the client
         res.status(201).json(book);
-
-        // 6. Remove image from the server
-        fs.unlinkSync(imagePath);
     } catch (err) {
         console.log(err.message)
         res.status(500).send('Server error')
@@ -129,7 +128,8 @@ const updateBook = asyncHandler(async(req, res) => {
 // access   Private | admin
 const updateBookImage = asyncHandler(async(req, res) => {
     // Book Image Check
-    if (!req.file) {
+    const image = req.file
+    if (!image) {
         return res.status(404).json({ message: "No image provided" })
     } 
 
@@ -142,15 +142,18 @@ const updateBookImage = asyncHandler(async(req, res) => {
     await cloudinaryRemoveImage(book.image.publicId)
 
     // Upload new Image
-    const imagePath = path.join(__dirname, `../images/${req.file.filename}`);
-    const result = await cloudinaryUploadImage(imagePath);
+    const base64 = image.buffer.toString('base64')
+    const mimeType = image.mimetype
+    const uploadResponse = await cloudinary.uploader.upload(
+        `data:${mimeType};base64,${base64}`,
+    );
 
     // Update Image Field in DB 
     const updateBook = await Book.findByIdAndUpdate(req.params.id, {
         $set: {
             image: {
-                url: result.secure_url,
-                publicId: result.public_id
+                url: uploadResponse.secure_url,
+                publicId: uploadResponse.public_id
             }
         }
     }, { new: true })
@@ -159,9 +162,6 @@ const updateBookImage = asyncHandler(async(req, res) => {
         data: updateBook, 
         message: "Image updated successfully" 
     });
-
-    // Remove Image From Server
-    fs.unlinkSync(imagePath)
 })
 
 // method   POST 
